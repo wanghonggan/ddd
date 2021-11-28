@@ -1,6 +1,8 @@
 package cn.loosing.demo.dao.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,23 +13,27 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "t_demo")
+@Table(name = "t_demo", indexes = {
+        @Index(name = "idx_demo_type", columnList = "type")
+})
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @Accessors(chain = true)
 public class Demo {
 
+    @Column(nullable = false, length = 50)
     @Id
-    @GeneratedValue(generator = "system-uuid")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
     @Enumerated(EnumType.STRING)
     private Status type;
 
+    @Column(length = 500)
     private String name;
 
-    @Column(length = 1000)
+    @Column(length = 2000)
     public String description;
 
     @CreatedDate

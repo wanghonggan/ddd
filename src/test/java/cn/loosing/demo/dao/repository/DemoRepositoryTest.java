@@ -27,7 +27,7 @@ class DemoRepositoryTest {
         demoRepository.save(new Demo().setName("A"));
         String name = "A";
         List<Demo> allByNameContaining = demoRepository.findAllByNameContaining(name);
-        Assert.isTrue(allByNameContaining.size()==1,"A");
+        Assert.isTrue(allByNameContaining.size()>1,"A");
     }
 
     @Test
