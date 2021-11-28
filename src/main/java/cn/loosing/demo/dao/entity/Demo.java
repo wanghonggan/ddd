@@ -1,9 +1,8 @@
 package cn.loosing.demo.dao.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -11,13 +10,17 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "t_demo", indexes = {
         @Index(name = "idx_demo_type", columnList = "type")
 })
 @EntityListeners(AuditingEntityListener.class)
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Accessors(chain = true)
 public class Demo {
 
@@ -44,5 +47,18 @@ public class Demo {
 
     enum Status {
         a, b, c
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Demo demo = (Demo) o;
+        return id != null && Objects.equals(id, demo.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

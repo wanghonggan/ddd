@@ -1,6 +1,8 @@
 package cn.loosing.demo.dao.repository;
 
 import cn.loosing.demo.dao.entity.Demo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,4 +18,7 @@ public interface DemoRepository extends JpaRepository<Demo, String> {
     Optional<Demo> findFirstByNameEqualsOrderByCreatedAtDesc(String name);
 
     List<Demo> findFirst10ByNameEqualsOrderByCreatedAtDesc(String name);
+
+    @Override
+    Page<Demo> findAll(Pageable pageable);
 }

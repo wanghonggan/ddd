@@ -32,8 +32,9 @@ class DemoControllerTest {
     }
 
     @Test
-    public void getDemoList2() throws Exception {
-        ResultActions perform = mockMvc.perform(MockMvcRequestBuilders.get("/demo/all"));
+    void page() throws Exception {
+        ResultActions perform = mockMvc.perform(MockMvcRequestBuilders.post("/demo/page"));
+
         System.out.println(perform);
     }
 }

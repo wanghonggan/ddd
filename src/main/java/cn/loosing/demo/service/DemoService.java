@@ -13,8 +13,11 @@ public class DemoService {
     }
 
     public Demo getDemo(String name) {
-        Demo demo = demoRepository.findFirstByNameEqualsOrderByCreatedAtDesc(name).get();
-        return demo;
+        return demoRepository.findFirstByNameEqualsOrderByCreatedAtDesc(name).orElse(new Demo().setName(""));
+    }
+
+    public Demo saveDemo(Demo demo) {
+        return demoRepository.save(demo);
     }
 
 }
